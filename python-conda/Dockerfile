@@ -15,3 +15,20 @@ mv extension /opt/code-oss/extensions/ms-python
 RUN wget https://open-vsx.org/api/ms-toolsai/jupyter/2023.9.100/file/ms-toolsai.jupyter-2023.9.100.vsix && \
 unzip ms-toolsai.jupyter-2023.9.100.vsix "extension/*" && \
 mv extension /opt/code-oss/extensions/jupyter
+
+RUN wget https://open-vsx.org/api/ms-toolsai/jupyter-keymap/1.1.2/file/ms-toolsai.jupyter-keymap-1.1.2.vsix && \
+unzip ms-toolsai.jupyter-keymap-1.1.2.vsix "extension/*" && \
+mv extension /opt/code-oss/extensions/jupyter-keymap
+
+RUN wget https://open-vsx.org/api/ms-toolsai/vscode-jupyter-slideshow/0.1.5/file/ms-toolsai.vscode-jupyter-slideshow-0.1.5.vsix && \
+unzip ms-toolsai.vscode-jupyter-slideshow-0.1.5.vsix "extension/*" && \
+mv extension /opt/code-oss/extensions/jupyter-slideshow
+
+RUN wget https://open-vsx.org/api/ms-toolsai/jupyter-renderers/1.0.17/file/ms-toolsai.jupyter-renderers-1.0.17.vsix && \
+unzip ms-toolsai.jupyter-renderers-1.0.17.vsix "extension/*" && \
+mv extension /opt/code-oss/extensions/jupyter-renderers
+
+RUN wget https://open-vsx.org/api/ms-toolsai/vscode-jupyter-cell-tags/0.1.8/file/ms-toolsai.vscode-jupyter-cell-tags-0.1.8.vsix && \
+unzip ms-toolsai.vscode-jupyter-cell-tags-0.1.8.vsix "extension/*" && \
+mv extension /opt/code-oss/extensions/jupyter-cell-tags
+

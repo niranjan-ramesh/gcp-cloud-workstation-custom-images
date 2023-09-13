@@ -6,4 +6,4 @@ RUN chmod +x /miniconda3/miniconda.sh
 RUN /miniconda3/miniconda.sh -b -u -p /miniconda3
 RUN rm -rf /miniconda3/miniconda.sh
 
-RUN /miniconda3/bin/conda init bash --system
+RUN /miniconda3/bin/conda init --all --system

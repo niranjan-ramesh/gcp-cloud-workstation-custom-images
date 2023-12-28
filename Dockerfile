@@ -1,5 +1,5 @@
 # # Use the Alpine Linux base image
-FROM python:3.10-alpine
+FROM python:3.10-alpine:latest
 
 LABEL description="Docker image for Python jupyter kernel in Vertex AI managed notebook instances."
 

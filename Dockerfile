@@ -12,7 +12,7 @@ RUN apk --no-cache add --virtual build-deps gcc=13.2.1_git20231014-r0 \
     build-base=0.5-r3 \
     libffi-dev=3.4.4-r3 \
 # Install python dependencies
-&& pip --no-cache-dir -r requirements.txt \
+&& pip --no-cache-dir -f requirements.txt \
 # Delete build dependencies
 && apk del build-deps
 

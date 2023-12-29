@@ -53,6 +53,11 @@ jobs:
       uses: "google-github-actions/setup-gcloud@v1"
     - name: "Use gcloud CLI"
       run: "gcloud info"
+    - name: "Extract tag name"
+      id: extract-tag
+      if: github.event_name == 'create' && github.event.ref_type == 'tag'
+      run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
     - name: "Trigger cloud build"
+      if: github.event_name == 'create' && github.event.ref_type == 'tag'
       run: |-
-        gcloud builds triggers run tb-env-build
+        gcloud builds triggers run --region=$REGION --tag==${{ steps.extract-tag.outputs.tag }} tb-env-build

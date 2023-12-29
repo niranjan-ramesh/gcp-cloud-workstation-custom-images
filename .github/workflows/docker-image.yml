@@ -7,6 +7,7 @@ on:
     tags:
       - '*'
 
+
 env:
   PROJECT_ID: phx-01h7gg8s1qfey7gw6ryqjrxtxe
   REGION: northamerica-northeast1

@@ -15,7 +15,6 @@ env:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -44,7 +43,11 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
-        
+  trigger-cloud-build:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'create' && github.event.ref_type == 'tag'
+    steps:   
     - id: "auth"
       uses: "google-github-actions/auth@v2"
       with:
@@ -55,9 +58,7 @@ jobs:
       run: "gcloud info"
     - name: "Extract tag name"
       id: extract-tag
-      if: github.event_name == 'create' && github.event.ref_type == 'tag'
       run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
     - name: "Trigger cloud build"
-      if: github.event_name == 'create' && github.event.ref_type == 'tag'
       run: |-
         gcloud builds triggers run --region=$REGION --tag==${{ steps.extract-tag.outputs.tag }} tb-env-build

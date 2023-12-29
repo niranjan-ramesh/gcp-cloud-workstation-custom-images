@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   PROJECT_ID: phx-01h7gg8s1qfey7gw6ryqjrxtxe
@@ -46,7 +44,8 @@ jobs:
     - id: "auth"
       uses: "google-github-actions/auth@v1"
       with:
-        credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+        # credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+        workload_identity_provider: projects/764717891748/locations/global/workloadIdentityPools/github/providers/tb-safe-inputs
     - name: "Set up Cloud SDK"
       uses: "google-github-actions/setup-gcloud@v1"
     - name: "Use gcloud CLI"

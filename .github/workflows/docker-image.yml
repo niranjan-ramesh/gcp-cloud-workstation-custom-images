@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Hadolint Action
       uses: hadolint/hadolint-action@v3.1.0
@@ -53,6 +53,3 @@ jobs:
     - name: "Trigger cloud build"
       run: |-
         gcloud builds triggers run tb-env-build
-
-    - name: Push image
-      run: docker push $IMAGE_NAME

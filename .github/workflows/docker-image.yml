@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: TB Analytics Custom Image CI
 
 on:
   push:
@@ -21,13 +21,14 @@ jobs:
     - name: Hadolint Action
       uses: hadolint/hadolint-action@v3.1.0
       with:
-        dockerfile: ./Dockerfile
+        dockerfile: ./analytics-environment/Dockerfile
         
     - name: "Set image name"
       run: |
         echo "IMAGE_NAME=$ARTIFACT_REGISTRY/tb-env" >> $GITHUB_ENV
         
     - name: Build an image from Dockerfile
+      working-directory: analytics-environment
       run: |
           docker build -t $IMAGE_NAME .
           
@@ -42,17 +43,16 @@ jobs:
         severity: 'CRITICAL,HIGH'
         
     - id: "auth"
-      uses: "google-github-actions/auth@v1"
+      uses: "google-github-actions/auth@v2"
       with:
-        # credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
-        workload_identity_provider: projects/764717891748/locations/global/workloadIdentityPools/github/providers/tb-safe-inputs
+        credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
     - name: "Set up Cloud SDK"
       uses: "google-github-actions/setup-gcloud@v1"
     - name: "Use gcloud CLI"
       run: "gcloud info"
-    - name: "Docker auth"
+    - name: "Trigger cloud build"
       run: |-
-        gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+        gcloud builds triggers run tb-env-build
 
     - name: Push image
       run: docker push $IMAGE_NAME
